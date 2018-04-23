@@ -1,0 +1,11 @@
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\bin\Debug\Tank-367_form.ver1.6_pre_beta.exe.config
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\bin\Debug\Tank-367_form.ver1.6_pre_beta.exe
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\bin\Debug\Tank-367_form.ver1.6_pre_beta.pdb
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank-367_form.ver1.6_pre_beta.csprojResolveAssemblyReference.cache
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.Properties.Resources.resources
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank-367_form.ver1.6_pre_beta.csproj.GenerateResource.Cache
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank-367_form.ver1.6_pre_beta.exe
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank-367_form.ver1.6_pre_beta.pdb
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.Form1.resources
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.start_form.resources
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.game_ninja.resources
