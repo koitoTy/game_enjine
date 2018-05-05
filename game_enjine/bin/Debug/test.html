@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+   <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head> -->
+<style>
+    body, textarea{
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }    
+    .control, .S, .func, .C, .kwrd, .R{
+        font-style: normal;
+        font-family: monospace;
+        font: "Consolas", 100px;
+    }
+    div{
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: black;
+    }
+    textarea{
+        color: white;
+        display: none;
+    }
+    .S{color:#ff3b00; padding: 0;
+        margin: 0;}/* Строки красные */
+    .func{color:#ff00a7; padding: 0;
+        margin: 0;}/* Юзер-функции синие */
+    .C{color:#24c41d; padding: 0;
+        margin: 0;}/* Комменты оранжевые */
+    .kwrd{font-weight:bold; color: blue; padding: 0;
+        margin: 0;}/* Ключевые слова полужирные */
+    .R{color:gray; padding: 0;
+        margin: 0;} /*Серые регвыражения */
+    </style>
+   <body>
+    <textarea class="control" id="text_code" onkeydown="set_code"></textarea><div class="control" id="code"></div>
+    <script>
+        var code;
+        //onkeydown="set_code()"
+        var item = document.getElementById('text_code');
+        var item_code = document.getElementById('code');
+        
+        /*
+        document.onkeyup = function(event){ item_code.innerHTML = Syntax(item.value); };
+        document.onkeydown = function(event){ item.value += event.key; };
+        item.onkeydown = function(event){ item.value += event.key;  };
+        item.onkeyup = function(event){ item_code.innerHTML = Syntax(item.value); };*/
+        //item.onkeydown = set_code();
+        //item_code.innerHTML = Syntax(code);
+        //items[1].value = code;
+        //item.onkeydown = set_code(onkeydown.keyCode);
+        function set_code(event){       
+            item.value += event;
+            item_code.innerHTML = Syntax(item.value);
+        } 
+function Syntax(code){
+	var comments	= [];	// Тут собираем все каменты
+	var strings		= [];	// Тут собираем все строки
+	var res			= [];	// Тут собираем все RegExp
+	var all			= { 'C': comments, 'S': strings, 'R': res };
+	var safe		= { '<': '<', '>': '>', '&': '&' };
+
+    if (code != null){
+	return code
+	// Маскируем HTML
+		.replace(/[<>&]/g, (function (m)
+			{ return safe[m]; }))
+	// Убираем каменты
+		.replace(/\/\*[\s\S]*\*\//g, (function(m)
+			{ var l=comments.length; comments.push(m); return '~~~C'+l+'~~~';   }))
+		.replace(/([^\\])\/\/[^\n]*\n/g, (function(m, f)
+			{ var l=comments.length; comments.push(m); return f+'~~~C'+l+'~~~'; }))
+	// Убираем regexp
+		.replace(/\/(\\\/|[^\/\n])*\/[gim]{0,3}/g, (function(m)
+			{ var l=res.length; res.push(m); return '~~~R'+l+'~~~';   }))
+	// Убираем строки
+		.replace(/([^\\])((?:'(?:\\'|[^'])*')|(?:"(?:\\"|[^"])*"))/g, (function(m, f, s)
+			{ var l=strings.length; strings.push(s); return f+'~~~S'+l+'~~~'; }))
+	// Выделяем ключевые слова
+		.replace(/(var|void|typeof|new|return|if|for|in|while|break|do|continue|switch|case|int|string|double|float|byte|long|char)([^a-z0-9\$_])/gi,
+			'<span class="kwrd">$1</span>$2')
+	// Выделяем скобки
+		.replace(/(\{|\}|\]|\[|\|)/gi,
+			'<span class="gly">$1</span>')
+	// Выделяем имена функций
+		.replace(/([a-z\_\$][a-z0-9_]*)[\s]*\(/gi,
+			'<span class="func">$1</span>(')
+	// Возвращаем на место каменты, строки, RegExp
+		.replace(/~~~([CSR])(\d+)~~~/g, (function(m, t, i)
+			{ return '<span class="'+t+'">'+all[t][i]+'</span>'; }))
+	// Выставляем переводы строк
+		.replace(/\n/g,
+			'<br/>')
+	// Табуляцию заменяем неразрывными пробелами
+		.replace(/\t/g,
+			'&nbsp;&nbsp;&nbsp;&nbsp;');
+    } return null;
+}
+    </script>
+</body>
+</html>

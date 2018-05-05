@@ -650,27 +650,92 @@ namespace coordinate
         /// <returns></returns>
         internal bool eql_unsafe(List<work> works_, work work_mine)
         {
-            //work work_ = work_mine;
-            work_mine.update_coordinate();
+            //work work_ = work_mine
+            coordinate mine = work_mine.get_coordinate();
             foreach (work item in works_)
             {
                 item.update_coordinate();
-                if (work_mine.get_coordinate().get_coordinate(1)[0] >=
-                    item.get_coordinate().get_coordinate(1)[0]
-                    && work_mine.get_coordinate().get_coordinate(1)[
-                        work_mine.get_coordinate().get_coordinate(1).Length - 1] <=
-                    item.get_coordinate().get_coordinate(1)[
-                        item.get_coordinate().get_coordinate(1).Length - 1])
-                {//проверка на иксы
-                    if(work_mine.get_coordinate().get_coordinate(4)[0] >=
-                        work_mine.get_coordinate().get_coordinate(4)[0] &&
-                        work_mine.get_coordinate().get_coordinate(4)[
-                            work_mine.get_coordinate().get_coordinate(4).Length - 1] <=
-                            item.get_coordinate().get_coordinate(4)[
-                                item.get_coordinate().get_coordinate(4).Length - 1])
-                    {//проверка на игрики
+                //bool l, r, t, b;
+                //для права
+                coordinate other = item.get_coordinate();
+                //------------------------------------------
+
+                if ((mine.get_coordinate(4)[0] >=
+                    other.get_coordinate(4)[0] &&
+                    mine.get_coordinate(4)[
+                        mine.get_coordinate(4).Length - 1] <=
+                        other.get_coordinate(4)[
+                            other.get_coordinate(4).Length - 1])
+                            || (mine.get_coordinate(4)[0] <=
+                            other.get_coordinate(4)[
+                                other.get_coordinate(4).Length - 1]
+                                && mine.get_coordinate(4)[
+                                    mine.get_coordinate(4).Length - 1] >
+                                other.get_coordinate(4)[0]
+                                // other.get_coordinate(4).Length - 1] 
+                                )
+                             || (mine.get_coordinate(4)[
+                                 mine.get_coordinate(4).Length - 1] >=
+                                 other.get_coordinate(4)[0]
+                                 && mine.get_coordinate(4)[0] <
+                                 other.get_coordinate(4)[
+                                     other.get_coordinate(4).Length - 1]
+                             )
+                             || (mine.get_coordinate(4)[0] <
+                             other.get_coordinate(4)[0] &&
+                             mine.get_coordinate(4)[
+                                 mine.get_coordinate(4).Length - 1] >
+                                 other.get_coordinate(4)[
+                                     other.get_coordinate(4).Length - 1]))
+                {
+                    // проверить
+                    // проверка иксов
+                    if (mine.get_coordinate(1)[0] <=
+                        other.get_coordinate(1)[
+                            other.get_coordinate(1).Length - 1]
+                            && mine.get_coordinate(1)[
+                                mine.get_coordinate(1).Length - 1] >
+                                other.get_coordinate(1)[
+                                    other.get_coordinate(1).Length - 1])
+                    {
+                        //string name = item.pictureBox1.Name;
+                        //names_.Add(item.pictureBox1.Name + "^L"); continue;
+                        return true;
+                        // лево
+                    }
+                    if ((mine.get_coordinate(1)[0] >
+                        other.get_coordinate(1)[0] &&
+                        mine.get_coordinate(1)[mine.get_coordinate(1).Length - 1] <
+                        other.get_coordinate(1)[
+                            other.get_coordinate(1).Length - 1])
+                            || (mine.get_coordinate(1)[0] ==
+                            other.get_coordinate(1)[0] &&
+                            mine.get_coordinate(1)[
+                                mine.get_coordinate(1).Length - 1] ==
+                                other.get_coordinate(1)[
+                                    other.get_coordinate(1).Length - 1])
+                            || (mine.get_coordinate(1)[0] <
+                            other.get_coordinate(1)[0] &&
+                            mine.get_coordinate(1)[
+                                mine.get_coordinate(1).Length - 1] >
+                                other.get_coordinate(1)[
+                                    other.get_coordinate(1).Length - 1]))
+                    {
+                        //names_.Add(item.pictureBox1.Name + "^UD"); continue;
+                        return true;
+                        // верх/низ
+                    }
+                    if (mine.get_coordinate(1)[0] <=
+                        other.get_coordinate(1)[0] &&
+                        mine.get_coordinate(1)[
+                            mine.get_coordinate(1).Length - 1] >=
+                        other.get_coordinate(1)[0])
+                    {
+                        //names_.Add(item.pictureBox1.Name + "^R"); continue;
+                        // право ДОДЕЛАТЬ
                         return true;
                     }
+
                 }
             }
             return false;
@@ -691,14 +756,11 @@ namespace coordinate
             foreach (work item in works_)
             {
                 item.update_coordinate();
-                bool l, r, t, b;
+            //    bool l, r, t, b;
                 //для права
                 coordinate other = item.get_coordinate();
                 //------------------------------------------
-                if(mine.get_coordinate(4).Length < other.get_coordinate(4).Length
-                    || true)
-                    // ОТЛАДКА DEBUG убрать true
-                {
+            
                     if((mine.get_coordinate(4)[0] >= 
                         other.get_coordinate(4)[0] && 
                         mine.get_coordinate(4)[
@@ -730,20 +792,51 @@ namespace coordinate
                         // проверить
                         // проверка иксов
                         if (mine.get_coordinate(1)[0] <= 
-                            other.get_coordinate(2)[
-                                other.get_coordinate(2).Length - 1]
-                                && mine.get_coordinate(2)[
-                                    mine.get_coordinate(2).Length - 1] > 
-                                    other.get_coordinate(2)[
-                                        other.get_coordinate(2).Length - 1])
+                            other.get_coordinate(1)[
+                                other.get_coordinate(1).Length - 1]
+                                && mine.get_coordinate(1)[
+                                    mine.get_coordinate(1).Length - 1] > 
+                                    other.get_coordinate(1)[
+                                        other.get_coordinate(1).Length - 1])
                         {
                             //string name = item.pictureBox1.Name;
-                            names_.Add(item.pictureBox1.Name);
+                            names_.Add(item.pictureBox1.Name+"^L"); continue;
+                            // лево
                         }
-                        //if(mine.get_coordinate(1)[0])
+                        if((mine.get_coordinate(1)[0] > 
+                            other.get_coordinate(1)[0] &&
+                            mine.get_coordinate(1)[mine.get_coordinate(1).Length - 1] <
+                            other.get_coordinate(1)[
+                                other.get_coordinate(1).Length - 1])                                
+                                ||(mine.get_coordinate(1)[0] ==
+                                other.get_coordinate(1)[0] && 
+                                mine.get_coordinate(1)[
+                                    mine.get_coordinate(1).Length - 1] ==
+                                    other.get_coordinate(1)[
+                                        other.get_coordinate(1).Length - 1])
+                                ||(mine.get_coordinate(1)[0] < 
+                                other.get_coordinate(1)[0] && 
+                                mine.get_coordinate(1)[
+                                    mine.get_coordinate(1).Length - 1] >
+                                    other.get_coordinate(1)[
+                                        other.get_coordinate(1).Length - 1]))
+                        {
+                            names_.Add(item.pictureBox1.Name+"^UD");continue;
+                            // верх/низ
+                        }
+                        if(mine.get_coordinate(1)[0] <= 
+                            other.get_coordinate(1)[0] && 
+                            mine.get_coordinate(1)[
+                                mine.get_coordinate(1).Length - 1] >=
+                            other.get_coordinate(1)[0])
+                        {
+                            names_.Add(item.pictureBox1.Name + "^R");continue;
+                            // право ДОДЕЛАТЬ
+                        }
+                             
                     }                    
                 }
-            }
+            
             return names_.ToArray();
         }        
     }
@@ -780,6 +873,7 @@ namespace coordinate
             coordinate_.all_plus(coordinate_, 5, arg_fall);
             coordinate_.all_plus(coordinate_, 6, arg_fall);
             coordinate_.all_plus(coordinate_, 7, arg_fall);
+            
             return coordinate_;
         }
 
@@ -834,6 +928,28 @@ namespace map
         //---------------------------------------------------
 
         /// <summary>
+        /// Вернёт нулевые объекты (номер и класс work) из unsafe кода
+        /// </summary>
+        /// <returns></returns>
+        internal object_[] get_unsafe_object()
+        {
+            object_[] obs = new object_[unsafe_works_.Count];
+            for (int i = 0; i < obs.Length; i++)
+            { obs[i] = new object_(i.ToString(), unsafe_works_[i]); }
+            return obs;
+        }
+
+        internal coordinate.coordinate get_coordinate()
+        {
+            return mine_obj.get_coordinate();
+        }
+
+        internal coordinate.work get_work()
+        {
+            return mine_obj;
+        }
+
+        /// <summary>ы
         /// Включаем unsafe мод 
         /// </summary>
         internal void unsafe_mod()
@@ -841,7 +957,7 @@ namespace map
             unsafe_works_ = new List<coordinate.work>();
         }
         /// <summary>
-        /// Добавляем рабочих для unsafe работы
+        /// Добавляем объекты для unsafe кода
         /// </summary>
         /// <param name="w_plus"></param>
         internal void unsafe_plus_work(coordinate.work w_plus)
@@ -864,6 +980,76 @@ namespace map
         internal string[] unsafe_eql_string_array()
         {
             return mine_obj.eql_name_unsafe(unsafe_works_, mine_obj);
+        }
+
+        /// <summary>
+        /// Создание объекта с заданием скорости
+        /// </summary>
+        /// <param name="name_">Имя</param>
+        /// <param name="my">Наш work класс</param>
+        /// <param name="x">Скорость по Х</param>
+        /// <param name="y">Скорость по Y</param>
+        public object_(string name_, coordinate.work my, int x, int y)
+        {
+            name = name_;
+            mine_obj = my;
+            move_on_x = x;
+            move_on_y = y;
+            top = null;
+            bottom = null;
+            left = null;
+            right = null;
+            fn_on_bottom = null_;
+            fn_on_left = null_;
+            fn_on_right = null_;
+            fn_on_top = null_;
+        }
+
+        /// <summary>
+        /// Создание объекта с выбором режима работы
+        /// </summary>
+        /// <param name="name_">Имя</param>
+        /// <param name="my">Наш класс work</param>
+        /// <param name="safe">true - безопасный режим, false - небезопасный</param>
+        public object_(string name_, coordinate.work my, bool safe)
+        {
+            name = name_;
+            mine_obj = my;
+            move_on_x = 0;
+            move_on_y = 0;
+            top = null;
+            bottom = null;
+            left = null;
+            right = null;
+            fn_on_bottom = null_;
+            fn_on_left = null_;
+            fn_on_right = null_;
+            fn_on_top = null_;
+            if (safe == false)
+            {
+                unsafe_mod();
+            }
+        }
+
+        /// <summary>
+        /// Создание объекта
+        /// </summary>
+        /// <param name="name_">Имя</param>
+        /// <param name="my">Наш класс work</param>
+        public object_(string name_, coordinate.work my)
+        {
+            name = name_;
+            mine_obj = my;
+            move_on_x = 0;
+            move_on_y = 0;
+            top = null;
+            bottom = null;
+            left = null;
+            right = null;
+            fn_on_bottom = null_;
+            fn_on_left = null_;
+            fn_on_right = null_;
+            fn_on_top = null_;
         }
 
         /// <summary>
@@ -941,7 +1127,7 @@ namespace map
                 mine_obj.set_location(
                     c_.all_plus(
                         mine_obj.get_coordinate(), 0, move_on_x)
-                ); mine_obj.update_coordinate();
+                ); mine_obj.update_coordinate();if (right == null) return;
                 if (mine_obj.eql_right(right.get_coordinate())) { fn_on_right(); }
                 // доделать
             }
@@ -950,7 +1136,7 @@ namespace map
                 mine_obj.set_location(
                     c_.all_plus(
                         mine_obj.get_coordinate(), 0, -1*move_on_x)
-                ); mine_obj.update_coordinate();
+                ); mine_obj.update_coordinate(); if (left == null) return;
                 if (mine_obj.eql_left(left.get_coordinate())) { fn_on_left(); }
                 // доделать
             }
@@ -959,7 +1145,7 @@ namespace map
         /// <summary>
         /// Прибавляем к координатам установленное значение У
         /// </summary>
-        /// <param name="y">Вверхили вниз (true или false)</param>
+        /// <param name="y">Вверх или вниз (true или false)</param>
         internal void plus_y(bool y)// true - вверх, false - вниз
         {
             coordinate.coordinate c_ = mine_obj.get_coordinate();
@@ -968,17 +1154,66 @@ namespace map
                 mine_obj.set_location(
                     c_.all_plus(
                         mine_obj.get_coordinate(), 5, -1 * move_on_y
-                        )); mine_obj.update_coordinate();
+                        )); mine_obj.update_coordinate(); if (top == null) return;
                 if (mine_obj.eql_top(top.get_coordinate())) { fn_on_top(); }
             }
             else
             {
                 mine_obj.set_location(
                     c_.all_plus(
-                        mine_obj.get_coordinate(), 7,  move_on_y
-                        )); mine_obj.update_coordinate();
+                        mine_obj.get_coordinate(), 5,  move_on_y
+                        )); mine_obj.update_coordinate(); if (bottom == null) return;
                 if (mine_obj.eql_bottom(bottom.get_coordinate())) { fn_on_bottom(); }
             }
+        }
+
+        /// <summary>
+        /// Переназначение левого объекта
+        /// </summary>
+        /// <param name="l"></param>
+        internal void re_left(coordinate.work l)
+        {
+            left = l;
+        }
+        /// <summary>
+        /// Переназначение правого объекта
+        /// </summary>
+        /// <param name="r"></param>
+        internal void re_right(coordinate.work r)
+        {
+            right = r;
+        }
+        /// <summary>
+        /// Переназначение верхнего объекта
+        /// </summary>
+        /// <param name="t"></param>
+        internal void re_top(coordinate.work t)
+        {
+            top = t;
+        }
+        /// <summary>
+        /// Переназначение нижнего объекта
+        /// </summary>
+        /// <param name="b"></param>
+        internal void re_bottom(coordinate.work b)
+        {
+            bottom = b;
+        }
+        /// <summary>
+        /// Переназначаем скорость движения по X
+        /// </summary>
+        /// <param name="move"></param>
+        internal void re_move_on_x (int move)
+        {
+            move_on_x = move;
+        }
+        /// <summary>
+        /// Переназначаем скорость движения по Y
+        /// </summary>
+        /// <param name="move"></param>
+        internal void re_move_on_y(int move)
+        {
+            move_on_y = move;
         }
     }
 }

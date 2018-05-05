@@ -1,0 +1,5 @@
+
+
+    function Syntax(code){
+        return code.replace(/(var|void|new|return|typeof|if|for|in|while|do|break|continue|switch|case)([^a-z0-9\$_])/gi,('<span class="kwrd">&1</span>&2'));
+    }

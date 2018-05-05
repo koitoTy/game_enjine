@@ -1,0 +1,11 @@
+        function set_code(){
+            alert("HEY MOTHERFUCER");
+            var items = document.getElementsByClassName('control');
+            var item = items[0];
+            alert(item);
+            item.onKeyDown = (function(){ alert("STOP IT FUCK U");
+                var item = document.getElementById('textcode');
+                var item_code = document.getElementById('code');
+                       item_code.innerHTML = Syntax(item.value);
+                });
+        } 

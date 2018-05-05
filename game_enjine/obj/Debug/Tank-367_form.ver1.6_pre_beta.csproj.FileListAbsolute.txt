@@ -9,3 +9,6 @@ F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank-36
 F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.Form1.resources
 F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.start_form.resources
 F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.game_ninja.resources
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\obj\Debug\Tank_367_form.ver1._6_pre_beta.module_form.resources
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+F:\Tank-367_form.ver1.6_pre_beta\Tank-367_form.ver1.6_pre_beta\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
