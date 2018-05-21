@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,10 +20,12 @@ namespace Tank_367_form.ver1._6_pre_beta
             game_image = new List<string>();
             //    image_id = new List<int>();
             pb_ = new List<PictureBox>();
+            path_code_base = new List<string>();
         }
         List<PictureBox> pb_;
         List<string> game_image;
-        
+        List<string> path_code_base;
+
         string file_name;
         string path_code;
         string code;
@@ -162,7 +165,100 @@ namespace Tank_367_form.ver1._6_pre_beta
         {
             //BUILD
             //control = true;
-            
+            string[] export_code = new string[path_code_base.Count + 2];
+            export_code[export_code.Length - 1] = "}";
+            export_code[0] = "class work_in : Form \n{";
+            for (int i = 1, k = 0; i < export_code.Length - 2; i++, k++)
+            {
+                export_code[i] = path_code_base[k];
+            }
+            string[] code_lib = new string[1223];
+            //номер последней строки в файле coordinate.cs
+            //READ COORDINATE.CS
+            using(System.IO.StreamReader sr = new System.IO.StreamReader("cor.prjlib"))
+            {
+                string line;
+                int j = 0;
+                while ((line = sr.ReadLine())!=null)
+                {
+                    code_lib[j] = line;
+                    j++;
+                }
+            }
+
+            //string main_func = "class Program\n{ static void Main()\n{ export();\n} \n}";
+
+
+            //List<List<string>> list_pb = new List<List<string>>();
+            List<string> pre_pb = new List<string>();
+            List<string> pre_works = new List<string>();
+            string create_c_works = "List<coordinate.work> c_work = new List<coordinate.work>();";
+            string create_pb_s = "List<PictureBox> pb_s = new List<PictureBox>();";
+            foreach (var item in pb_)
+            {
+                pre_pb.Add("\n{\n" + create_pb(item.Location.X,
+                    item.Location.Y, item.ImageLocation, item.Name) +
+                    "pb_s.Add(pb); c_work.Add(new coordinate.work(pb));" + "\n}");
+            }
+            //map.object_ ob = new map.object_("Main()", new coordinate.work(pb_));
+            // файлы 
+            string code = null;            
+            {
+                for (int i = 0; i < path_code_base.Count; i++)
+                {
+                    System.IO.StreamReader sr = new System.IO.StreamReader(path_code_base[i]);
+                    string line;
+                    int j = 0;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        code += line;
+                        j++;
+                    }
+                }
+            }
+            // общая сборка
+            List<string> all_code = new List<string>();
+            all_code.Add(export_code[0]);
+            all_code.Add("public work_in()\n{");
+            all_code.Add(create_c_works);
+            all_code.Add(create_pb_s);
+            foreach (var item in pre_works)
+            {
+                all_code.Add(item);
+            }
+            foreach (var item in pre_pb)
+            {
+                all_code.Add(item);
+            }
+            for (int i = 1; i < code_lib.Length - 2; i++)
+            {
+                all_code.Add(code_lib[i]);
+            }
+            all_code.Add("}");
+            all_code.Add(code);
+            all_code.Add(code_lib[code_lib.Length - 1]);
+            System.IO.StreamWriter sw = new System.IO.StreamWriter("game.cs");            
+            TimerCallback tm = new TimerCallback(Frame);
+            System.Threading.Timer timer = new System.Threading.Timer(tm, null, 0, 20);
+            //test del up
+            string update_ = "";
+
+            for (int ky = 0; ky < all_code.Count; ky++)
+            {
+                string str = all_code[ky];
+                for (int ty = 0; ty < str.Length; ty++)
+                {
+                    sw.Write(str[ty]);
+                }
+            }
+        }
+        string create_pb(int x, int y, string item_location, string name)
+        {
+            return "PictureBox pb = new PictureBox();\n" +
+                "pb.Location.X = "+x.ToString()+";\n"+
+                "pb.Location.Y = "+y.ToString()+";\n"+
+                "pb.Name = "+Name+";\n"+
+                "pb.ImageLocation = "+item_location+";";
         }
 
         private void game_KeyDown(object sender, KeyEventArgs e)
@@ -281,8 +377,14 @@ namespace Tank_367_form.ver1._6_pre_beta
         private void call_module_Click(object sender, EventArgs e)
         {
             module_form f_ = new module_form();
-            f_.code_ = code;
+            //f_.code_ = code;
             f_.Show();
+            f_.Disposed += F__Disposed;            
+        }
+
+        private void F__Disposed(object sender, EventArgs e)
+        {
+            path_code_base.Add((sender as module_form).path);
         }
     }
 }
